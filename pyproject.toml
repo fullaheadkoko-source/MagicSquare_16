@@ -11,9 +11,9 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-where = ["."]
+where = ["tests"]
 include = ["magicsquare*"]
 
 [tool.pytest.ini_options]
-pythonpath = ["."]
+pythonpath = ["tests"]
 testpaths = ["tests"]
