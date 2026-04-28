@@ -76,6 +76,15 @@ python -m pytest --cov=entity --cov=boundary --cov-fail-under=80
 
 ---
 
+## GUI 실행 (PyQt6)
+
+```bash
+python -m pip install -e ".[gui]"
+python -m magicsquare
+```
+
+---
+
 ## ECB (`.cursorrules` / `Report/03`)
 
 | 스테레오타입 | 책임 | 하지 말 것 |
