@@ -1,16 +1,25 @@
 """Track B — Logic RED (pytest).
 
 구현 없음: 각 테스트는 RED 단계에서 의도적으로 실패한다.
+(LOG-RED-01은 GREEN: find_blank_coords row-major 두 빈칸.)
 """
 
 import pytest
+
+from magicsquare.constants import EMPTY_CELL_VALUE, MATRIX_SIZE
+from magicsquare.domain import find_blank_coords
 
 
 class TestFindBlankCoordsRed:
     """LOG-RED-01 — find_blank_coords (row-major, two blanks)."""
 
     def test_log_red_01_row_major_two_blanks(self) -> None:
-        pytest.fail("RED: LOG-RED-01 — find_blank_coords order and count")
+        filler = 1
+        row_template = [filler] * MATRIX_SIZE
+        board = [list(row_template) for _ in range(MATRIX_SIZE)]
+        board[0][2] = EMPTY_CELL_VALUE
+        board[3][1] = EMPTY_CELL_VALUE
+        assert find_blank_coords(board) == [(0, 2), (3, 1)]
 
 
 class TestFindNotExistNumsRed:
