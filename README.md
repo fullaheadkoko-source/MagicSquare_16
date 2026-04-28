@@ -239,7 +239,7 @@ python -m pytest --cov=entity --cov=boundary --cov-fail-under=80
 |:---|:---|
 | `docs/PRD.md` | PRD 원본 |
 | `docs/Magic_Square_Implementation_TODO_Traceability.md` | **구현 보드 (본 README의 중심)** |
-| `Report/` | 설계·여정·규칙보내기·PRD Export·[납품 현황 `06.Project_Documentation_Delivery_Update.md`](Report/06.Project_Documentation_Delivery_Update.md) |
+| `Report/` | 설계·여정·규칙보내기·PRD Export·[납품 현황 `06`](Report/06.Project_Documentation_Delivery_Update.md)·[테스트 케이스 명세 `07`](Report/07.Test_Case_Specification_MS16_Form.md) |
 | `Prompting/` | 문서 작성용 프롬프트 등 |
 
 ---
