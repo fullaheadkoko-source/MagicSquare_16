@@ -19,7 +19,15 @@ from PyQt6.QtWidgets import (
 )
 
 from magicsquare.boundary import UIBoundaryError, validate_4x4_shape
-from magicsquare.constants import MATRIX_SIZE
+from magicsquare.constants import EMPTY_CELL_VALUE, MATRIX_SIZE
+from magicsquare.domain import find_blank_coords, find_not_exist_nums
+
+_DEFAULT_MATRIX: Final[list[list[int]]] = [
+    [EMPTY_CELL_VALUE, 3, 2, 13],
+    [5, EMPTY_CELL_VALUE, 11, 8],
+    [9, 6, 7, 12],
+    [4, 15, 14, 1],
+]
 
 
 class MagicSquareWindow(QMainWindow):
@@ -42,7 +50,7 @@ class MagicSquareWindow(QMainWindow):
                 edit = QLineEdit()
                 edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 edit.setFixedWidth(48)
-                edit.setPlaceholderText("0")
+                edit.setText(str(_DEFAULT_MATRIX[r][c]))
                 grid.addWidget(edit, r, c)
                 row.append(edit)
             self._cells.append(row)
@@ -82,8 +90,28 @@ class MagicSquareWindow(QMainWindow):
             matrix = self._read_matrix()
             validate_4x4_shape(matrix)
 
-            raise ValueError(
-                "Solver is not implemented yet (next GREEN commits will add solve())."
+            blanks = find_blank_coords(matrix)
+            if len(blanks) != 2:
+                raise ValueError(
+                    "Matrix must contain exactly 2 empty cells (0)."
+                )
+
+            (r1, c1), (r2, c2) = blanks
+            r1 += 1
+            c1 += 1
+            r2 += 1
+            c2 += 1
+
+            missing = find_not_exist_nums(matrix)
+            if len(missing) != 2:
+                raise ValueError("Internal error: expected exactly 2 missing numbers.")
+            small, large = missing
+
+            self._result_label.setText(
+                "결과: "
+                f"빈칸(0) 좌표=({r1},{c1}),({r2},{c2}) / "
+                f"들어갈 후보 숫자=({small},{large}) / "
+                f"이유=1..{MATRIX_SIZE*MATRIX_SIZE} 중 보드에 없는 값"
             )
         except (UIBoundaryError, ValueError) as exc:
             QMessageBox.warning(self, "입력 오류", str(exc))

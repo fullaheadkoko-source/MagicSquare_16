@@ -7,7 +7,7 @@
 import pytest
 
 from magicsquare.constants import EMPTY_CELL_VALUE, MATRIX_SIZE
-from magicsquare.domain import find_blank_coords
+from magicsquare.domain import find_blank_coords, find_not_exist_nums
 
 
 class TestFindBlankCoordsRed:
@@ -26,7 +26,15 @@ class TestFindNotExistNumsRed:
     """LOG-RED-02 — find_not_exist_nums (two missing, ascending)."""
 
     def test_log_red_02_two_missing_sorted(self) -> None:
-        pytest.fail("RED: LOG-RED-02 — missing pair ascending")
+        board = [
+            [EMPTY_CELL_VALUE, 3, 2, 13],
+            [5, EMPTY_CELL_VALUE, 11, 8],
+            [9, 6, 7, 12],
+            [4, 15, 14, 1],
+        ]
+        assert len(board) == MATRIX_SIZE
+        assert all(len(row) == MATRIX_SIZE for row in board)
+        assert find_not_exist_nums(board) == [10, 16]
 
 
 class TestIsMagicSquareRed:
